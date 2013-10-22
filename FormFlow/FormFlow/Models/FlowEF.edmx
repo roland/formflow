@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FormFlowModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="FormFlowModelStoreContainer">
+          <EntitySet Name="ff_FlowRuns" EntityType="FormFlowModel.Store.ff_FlowRuns" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_Flows" EntityType="FormFlowModel.Store.ff_Flows" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_FlowSteps" EntityType="FormFlowModel.Store.ff_FlowSteps" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_Steps" EntityType="FormFlowModel.Store.ff_Steps" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_StepTypes" EntityType="FormFlowModel.Store.ff_StepTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_Transitions" EntityType="FormFlowModel.Store.ff_Transitions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_TransitionTypes" EntityType="FormFlowModel.Store.ff_TransitionTypes" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ff_WebServices" EntityType="FormFlowModel.Store.ff_WebServices" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ff_FlowRuns_ff_Steps" Association="FormFlowModel.Store.FK_ff_FlowRuns_ff_Steps">
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+            <End Role="ff_FlowRuns" EntitySet="ff_FlowRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_FlowRuns" Association="FormFlowModel.Store.FK_ff_FlowSteps_ff_FlowRuns">
+            <End Role="ff_FlowRuns" EntitySet="ff_FlowRuns" />
+            <End Role="ff_FlowSteps" EntitySet="ff_FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_Steps" Association="FormFlowModel.Store.FK_ff_FlowSteps_ff_Steps">
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+            <End Role="ff_FlowSteps" EntitySet="ff_FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_StepsFrom" Association="FormFlowModel.Store.FK_ff_FlowSteps_ff_StepsFrom">
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+            <End Role="ff_FlowSteps" EntitySet="ff_FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Steps_ff_Flows" Association="FormFlowModel.Store.FK_ff_Steps_ff_Flows">
+            <End Role="ff_Flows" EntitySet="ff_Flows" />
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Steps_ff_StepTypes" Association="FormFlowModel.Store.FK_ff_Steps_ff_StepTypes">
+            <End Role="ff_StepTypes" EntitySet="ff_StepTypes" />
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_StepsFrom" Association="FormFlowModel.Store.FK_ff_Transitions_ff_StepsFrom">
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+            <End Role="ff_Transitions" EntitySet="ff_Transitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_TransitionsTo" Association="FormFlowModel.Store.FK_ff_Transitions_ff_TransitionsTo">
+            <End Role="ff_Steps" EntitySet="ff_Steps" />
+            <End Role="ff_Transitions" EntitySet="ff_Transitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_TransitionTypes" Association="FormFlowModel.Store.FK_ff_Transitions_ff_TransitionTypes">
+            <End Role="ff_TransitionTypes" EntitySet="ff_TransitionTypes" />
+            <End Role="ff_Transitions" EntitySet="ff_Transitions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ff_FlowRuns">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartedAt" Type="datetime" />
+          <Property Name="CurrentStepID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="ff_Flows">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ff_FlowSteps">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StepID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FromStepID" Type="uniqueidentifier" />
+          <Property Name="FlowRunID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ff_Steps">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StepTypeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FlowID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ff_StepTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ff_Transitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="FromStepID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ToStepID" Type="uniqueidentifier" />
+          <Property Name="TranistionTypeID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ff_TransitionTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ff_WebServices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WsdlUrl" Type="varchar" MaxLength="1024" />
+          <Property Name="CachedWsdl" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_ff_FlowRuns_ff_Steps">
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="0..1" />
+          <End Role="ff_FlowRuns" Type="FormFlowModel.Store.ff_FlowRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowRuns">
+              <PropertyRef Name="CurrentStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_FlowRuns">
+          <End Role="ff_FlowRuns" Type="FormFlowModel.Store.ff_FlowRuns" Multiplicity="1" />
+          <End Role="ff_FlowSteps" Type="FormFlowModel.Store.ff_FlowSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_FlowRuns">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowSteps">
+              <PropertyRef Name="FlowRunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_Steps">
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="1" />
+          <End Role="ff_FlowSteps" Type="FormFlowModel.Store.ff_FlowSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowSteps">
+              <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_StepsFrom">
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="0..1" />
+          <End Role="ff_FlowSteps" Type="FormFlowModel.Store.ff_FlowSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowSteps">
+              <PropertyRef Name="FromStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Steps_ff_Flows">
+          <End Role="ff_Flows" Type="FormFlowModel.Store.ff_Flows" Multiplicity="1" />
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Flows">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Steps">
+              <PropertyRef Name="FlowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Steps_ff_StepTypes">
+          <End Role="ff_StepTypes" Type="FormFlowModel.Store.ff_StepTypes" Multiplicity="1" />
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_StepTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Steps">
+              <PropertyRef Name="StepTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_StepsFrom">
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="1" />
+          <End Role="ff_Transitions" Type="FormFlowModel.Store.ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="FromStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_TransitionsTo">
+          <End Role="ff_Steps" Type="FormFlowModel.Store.ff_Steps" Multiplicity="0..1" />
+          <End Role="ff_Transitions" Type="FormFlowModel.Store.ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="ToStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_TransitionTypes">
+          <End Role="ff_TransitionTypes" Type="FormFlowModel.Store.ff_TransitionTypes" Multiplicity="1" />
+          <End Role="ff_Transitions" Type="FormFlowModel.Store.ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_TransitionTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="TranistionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FormFlowModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FormFlowEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Flows" EntityType="FormFlowModel.Flow" />
+          <EntitySet Name="FlowSteps" EntityType="FormFlowModel.FlowStep" />
+          <EntitySet Name="StepTypes" EntityType="FormFlowModel.StepType" />
+          <EntitySet Name="Steps" EntityType="FormFlowModel.Step" />
+          <AssociationSet Name="FK_ff_Steps_ff_Flows" Association="FormFlowModel.FK_ff_Steps_ff_Flows">
+            <End Role="Flow" EntitySet="Flows" />
+            <End Role="ff_Steps" EntitySet="Steps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_Steps" Association="FormFlowModel.FK_ff_FlowSteps_ff_Steps">
+            <End Role="ff_Steps" EntitySet="Steps" />
+            <End Role="ff_FlowSteps" EntitySet="FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_StepsFrom" Association="FormFlowModel.FK_ff_FlowSteps_ff_StepsFrom">
+            <End Role="ff_Steps" EntitySet="Steps" />
+            <End Role="ff_FlowSteps" EntitySet="FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Steps_ff_StepTypes" Association="FormFlowModel.FK_ff_Steps_ff_StepTypes">
+            <End Role="ff_StepTypes" EntitySet="StepTypes" />
+            <End Role="ff_Steps" EntitySet="Steps" />
+          </AssociationSet>
+          <EntitySet Name="FlowRuns" EntityType="FormFlowModel.FlowRun" />
+          <EntitySet Name="Transitions" EntityType="FormFlowModel.Transition" />
+          <EntitySet Name="TransitionTypes" EntityType="FormFlowModel.TransitionType" />
+          <EntitySet Name="WebServices" EntityType="FormFlowModel.WebService" />
+          <AssociationSet Name="FK_ff_FlowRuns_ff_Steps" Association="FormFlowModel.FK_ff_FlowRuns_ff_Steps">
+            <End Role="Step" EntitySet="Steps" />
+            <End Role="ff_FlowRuns" EntitySet="FlowRuns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_FlowSteps_ff_FlowRuns" Association="FormFlowModel.FK_ff_FlowSteps_ff_FlowRuns">
+            <End Role="ff_FlowRuns" EntitySet="FlowRuns" />
+            <End Role="FlowStep" EntitySet="FlowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_StepsFrom" Association="FormFlowModel.FK_ff_Transitions_ff_StepsFrom">
+            <End Role="Step" EntitySet="Steps" />
+            <End Role="ff_Transitions" EntitySet="Transitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_TransitionsTo" Association="FormFlowModel.FK_ff_Transitions_ff_TransitionsTo">
+            <End Role="Step" EntitySet="Steps" />
+            <End Role="ff_Transitions" EntitySet="Transitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ff_Transitions_ff_TransitionTypes" Association="FormFlowModel.FK_ff_Transitions_ff_TransitionTypes">
+            <End Role="ff_TransitionTypes" EntitySet="TransitionTypes" />
+            <End Role="ff_Transitions" EntitySet="Transitions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Flow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Steps" Relationship="FormFlowModel.FK_ff_Steps_ff_Flows" FromRole="Flow" ToRole="ff_Steps" />
+        </EntityType>
+        <EntityType Name="FlowStep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="StepID" Nullable="false" />
+          <Property Type="Guid" Name="FromStepID" />
+          <Property Type="Guid" Name="FlowRunID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Precision="3" />
+          <NavigationProperty Name="CurrentStep" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_Steps" FromRole="ff_FlowSteps" ToRole="ff_Steps" />
+          <NavigationProperty Name="FromStep" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_StepsFrom" FromRole="ff_FlowSteps" ToRole="ff_Steps" />
+          <NavigationProperty Name="FlowRun" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_FlowRuns" FromRole="FlowStep" ToRole="ff_FlowRuns" />
+        </EntityType>
+        <EntityType Name="StepType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Steps" Relationship="FormFlowModel.FK_ff_Steps_ff_StepTypes" FromRole="ff_StepTypes" ToRole="ff_Steps" />
+        </EntityType>
+        <EntityType Name="Step">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="Guid" Name="StepTypeID" Nullable="false" />
+          <Property Type="Guid" Name="FlowID" Nullable="false" />
+          <NavigationProperty Name="Flow" Relationship="FormFlowModel.FK_ff_Steps_ff_Flows" FromRole="ff_Steps" ToRole="Flow" />
+          <NavigationProperty Name="CurrentFlowSteps" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_Steps" FromRole="ff_Steps" ToRole="ff_FlowSteps" />
+          <NavigationProperty Name="FromFlowSteps" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_StepsFrom" FromRole="ff_Steps" ToRole="ff_FlowSteps" />
+          <NavigationProperty Name="StepType" Relationship="FormFlowModel.FK_ff_Steps_ff_StepTypes" FromRole="ff_Steps" ToRole="ff_StepTypes" />
+          <NavigationProperty Name="FlowRuns" Relationship="FormFlowModel.FK_ff_FlowRuns_ff_Steps" FromRole="Step" ToRole="ff_FlowRuns" />
+          <NavigationProperty Name="FromTransitions" Relationship="FormFlowModel.FK_ff_Transitions_ff_StepsFrom" FromRole="Step" ToRole="ff_Transitions" />
+          <NavigationProperty Name="ToTransitions" Relationship="FormFlowModel.FK_ff_Transitions_ff_TransitionsTo" FromRole="Step" ToRole="ff_Transitions" />
+        </EntityType>
+        <Association Name="FK_ff_Steps_ff_Flows">
+          <End Type="FormFlowModel.Flow" Role="Flow" Multiplicity="1" />
+          <End Type="FormFlowModel.Step" Role="ff_Steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Steps">
+              <PropertyRef Name="FlowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_Steps">
+          <End Type="FormFlowModel.Step" Role="ff_Steps" Multiplicity="1" />
+          <End Type="FormFlowModel.FlowStep" Role="ff_FlowSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowSteps">
+              <PropertyRef Name="StepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_StepsFrom">
+          <End Type="FormFlowModel.Step" Role="ff_Steps" Multiplicity="0..1" />
+          <End Type="FormFlowModel.FlowStep" Role="ff_FlowSteps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_Steps">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowSteps">
+              <PropertyRef Name="FromStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Steps_ff_StepTypes">
+          <End Type="FormFlowModel.StepType" Role="ff_StepTypes" Multiplicity="1" />
+          <End Type="FormFlowModel.Step" Role="ff_Steps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_StepTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Steps">
+              <PropertyRef Name="StepTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FlowRun">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="StartedAt" Precision="3" />
+          <Property Type="Guid" Name="CurrentStepID" />
+          <NavigationProperty Name="CurrentStep" Relationship="FormFlowModel.FK_ff_FlowRuns_ff_Steps" FromRole="ff_FlowRuns" ToRole="Step" />
+          <NavigationProperty Name="FlowSteps" Relationship="FormFlowModel.FK_ff_FlowSteps_ff_FlowRuns" FromRole="ff_FlowRuns" ToRole="FlowStep" />
+        </EntityType>
+        <EntityType Name="Transition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Guid" Name="FromStepID" Nullable="false" />
+          <Property Type="Guid" Name="ToStepID" />
+          <Property Type="Guid" Name="TranistionTypeID" Nullable="false" />
+          <NavigationProperty Name="FromStep" Relationship="FormFlowModel.FK_ff_Transitions_ff_StepsFrom" FromRole="ff_Transitions" ToRole="Step" />
+          <NavigationProperty Name="ToStep" Relationship="FormFlowModel.FK_ff_Transitions_ff_TransitionsTo" FromRole="ff_Transitions" ToRole="Step" />
+          <NavigationProperty Name="TransitionType" Relationship="FormFlowModel.FK_ff_Transitions_ff_TransitionTypes" FromRole="ff_Transitions" ToRole="ff_TransitionTypes" />
+        </EntityType>
+        <EntityType Name="TransitionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transitions" Relationship="FormFlowModel.FK_ff_Transitions_ff_TransitionTypes" FromRole="ff_TransitionTypes" ToRole="ff_Transitions" />
+        </EntityType>
+        <EntityType Name="WebService">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" />
+          <Property Type="String" Name="WsdlUrl" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CachedWsdl" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ff_FlowRuns_ff_Steps">
+          <End Type="FormFlowModel.Step" Role="Step" Multiplicity="0..1" />
+          <End Type="FormFlowModel.FlowRun" Role="ff_FlowRuns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_FlowRuns">
+              <PropertyRef Name="CurrentStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_FlowSteps_ff_FlowRuns">
+          <End Type="FormFlowModel.FlowRun" Role="ff_FlowRuns" Multiplicity="1" />
+          <End Type="FormFlowModel.FlowStep" Role="FlowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_FlowRuns">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FlowStep">
+              <PropertyRef Name="FlowRunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_StepsFrom">
+          <End Type="FormFlowModel.Step" Role="Step" Multiplicity="1" />
+          <End Type="FormFlowModel.Transition" Role="ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="FromStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_TransitionsTo">
+          <End Type="FormFlowModel.Step" Role="Step" Multiplicity="0..1" />
+          <End Type="FormFlowModel.Transition" Role="ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Step">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="ToStepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ff_Transitions_ff_TransitionTypes">
+          <End Type="FormFlowModel.TransitionType" Role="ff_TransitionTypes" Multiplicity="1" />
+          <End Type="FormFlowModel.Transition" Role="ff_Transitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ff_TransitionTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ff_Transitions">
+              <PropertyRef Name="TranistionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FormFlowModelStoreContainer" CdmEntityContainer="FormFlowEntities">
+          <EntitySetMapping Name="Flows">
+            <EntityTypeMapping TypeName="FormFlowModel.Flow">
+              <MappingFragment StoreEntitySet="ff_Flows">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlowSteps">
+            <EntityTypeMapping TypeName="FormFlowModel.FlowStep">
+              <MappingFragment StoreEntitySet="ff_FlowSteps">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="FlowRunID" ColumnName="FlowRunID" />
+                <ScalarProperty Name="FromStepID" ColumnName="FromStepID" />
+                <ScalarProperty Name="StepID" ColumnName="StepID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StepTypes">
+            <EntityTypeMapping TypeName="FormFlowModel.StepType">
+              <MappingFragment StoreEntitySet="ff_StepTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Steps">
+            <EntityTypeMapping TypeName="FormFlowModel.Step">
+              <MappingFragment StoreEntitySet="ff_Steps">
+                <ScalarProperty Name="FlowID" ColumnName="FlowID" />
+                <ScalarProperty Name="StepTypeID" ColumnName="StepTypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlowRuns">
+            <EntityTypeMapping TypeName="FormFlowModel.FlowRun">
+              <MappingFragment StoreEntitySet="ff_FlowRuns">
+                <ScalarProperty Name="CurrentStepID" ColumnName="CurrentStepID" />
+                <ScalarProperty Name="StartedAt" ColumnName="StartedAt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transitions">
+            <EntityTypeMapping TypeName="FormFlowModel.Transition">
+              <MappingFragment StoreEntitySet="ff_Transitions">
+                <ScalarProperty Name="TranistionTypeID" ColumnName="TranistionTypeID" />
+                <ScalarProperty Name="ToStepID" ColumnName="ToStepID" />
+                <ScalarProperty Name="FromStepID" ColumnName="FromStepID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransitionTypes">
+            <EntityTypeMapping TypeName="FormFlowModel.TransitionType">
+              <MappingFragment StoreEntitySet="ff_TransitionTypes">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebServices">
+            <EntityTypeMapping TypeName="FormFlowModel.WebService">
+              <MappingFragment StoreEntitySet="ff_WebServices">
+                <ScalarProperty Name="CachedWsdl" ColumnName="CachedWsdl" />
+                <ScalarProperty Name="WsdlUrl" ColumnName="WsdlUrl" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

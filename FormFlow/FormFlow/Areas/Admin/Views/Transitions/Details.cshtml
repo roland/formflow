@@ -1,0 +1,44 @@
+﻿@model FormFlow.Models.Transition
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Transition</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FromStep.ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FromStep.ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ToStep.ID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ToStep.ID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TransitionType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TransitionType.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

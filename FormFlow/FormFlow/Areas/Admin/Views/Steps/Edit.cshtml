@@ -1,0 +1,47 @@
+﻿@model FormFlow.Models.Step
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Step</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StepTypeID, "StepType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("StepTypeID", String.Empty)
+            @Html.ValidationMessageFor(model => model.StepTypeID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FlowID, "Flow")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("FlowID", String.Empty)
+            @Html.ValidationMessageFor(model => model.FlowID)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

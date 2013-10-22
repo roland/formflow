@@ -1,0 +1,29 @@
+﻿@model FormFlow.Models.WebService
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>WebService</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WsdlUrl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WsdlUrl)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CachedWsdl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CachedWsdl)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

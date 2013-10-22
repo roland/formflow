@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ff_Flows] (
+    [ID]   UNIQUEIDENTIFIER CONSTRAINT [DF_ff_Flows_ID] DEFAULT (newid()) NOT NULL,
+    [Name] VARCHAR (100)    NULL,
+    CONSTRAINT [PK_ff_Flows] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

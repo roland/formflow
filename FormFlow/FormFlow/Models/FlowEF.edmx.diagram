@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9e6d11f8f83f451a93bda633020fc575" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="FormFlowModel.Flow" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormFlowModel.StepType" Width="1.5" PointX="5.375" PointY="1.5" />
+        <EntityTypeShape EntityType="FormFlowModel.Step" Width="1.5" PointX="3.125" PointY="3.125" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_Steps_ff_Flows" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_Steps_ff_StepTypes" />
+        <EntityTypeShape EntityType="FormFlowModel.FlowStep" Width="1.5" PointX="6.625" PointY="4.125" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_FlowSteps_ff_Steps" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_FlowSteps_ff_StepsFrom" />
+        <EntityTypeShape EntityType="FormFlowModel.FlowRun" Width="1.5" PointX="7.65718661046456" PointY="0.60243295161166832" />
+        <EntityTypeShape EntityType="FormFlowModel.Transition" Width="1.5" PointX="10.205848557039094" PointY="0.40397745389676532" />
+        <EntityTypeShape EntityType="FormFlowModel.TransitionType" Width="1.5" PointX="11" PointY="9.5" />
+        <EntityTypeShape EntityType="FormFlowModel.WebService" Width="1.5" PointX="1.8611187701398131" PointY="17.754970365089815" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_FlowRuns_ff_Steps" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_FlowSteps_ff_FlowRuns" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_Transitions_ff_StepsFrom" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_Transitions_ff_TransitionsTo" />
+        <AssociationConnector Association="FormFlowModel.FK_ff_Transitions_ff_TransitionTypes" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
